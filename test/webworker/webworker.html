@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Web Worker</title>
+    </head>
+    <body>
+        <p>
+            Count numbers: <output id="result"></output>
+        </p>
+        <button onclick="startWorker()">
+            Start Worker
+        </button>
+        <button onclick="stopWorker()">
+            Stop Worker
+        </button>
+    </body>
+    <script>
+        var w;
+        
+        function startWorker()
+        {
+	        if(typeof(Worker)!=="undefined")
+	        {
+	        	if(typeof(w)=="undefined")
+	            {
+	            	w=new Worker("./demo_workers.js");
+					w.postMessage("Here’s a message for you");
+	            }
+				w.addEventListener("message", function(event){
+					
+					document.getElementById("result").innerHTML=event.data;
+				}, false);
+	         /* 	w.onmessage = function (event) 
+				{
+	            	document.getElementById("result").innerHTML=event.data;
+	          	}; */
+	        }
+	        else
+	        {
+	        	document.getElementById("result").innerHTML="Sorry, your browser does not support Web Workers...";
+	        }
+        }
+        
+        function stopWorker()
+        {
+       		w.terminate();
+        }
+    </script>
+</html>
