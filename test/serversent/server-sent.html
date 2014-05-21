@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Server Sent</title>
+    </head>
+    <body onclick="handlClick(event);">
+    	<div style="height:200px;width:200px;background-color:red;">
+    		我在body中
+    	</div>
+		<div>
+			<iframe src="test.html" style="height:200px;width:200px;background-color:grey;">
+				
+			</iframe>
+		</div>
+		<script>
+			var handlClick = function(event)
+			{
+				var target = event.target;
+				console.log(target.tagName);
+			}
+			
+			window.addEventListener('message', function(event){
+				
+				console.log("iframe is clicked!");
+			}, false);
+		</script>
+    </body>
+</html>
